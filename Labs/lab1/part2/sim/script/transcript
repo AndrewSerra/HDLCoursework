@@ -1,0 +1,36 @@
+# do sim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:37:00 on Aug 30,2020
+# vcom -reportprogress 300 -93 -work work ../../src/blink.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity blink
+# -- Compiling architecture beh of blink
+# End time: 13:37:01 on Aug 30,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:37:01 on Aug 30,2020
+# vcom -reportprogress 300 -93 -work work ../src/blink_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity blink_tb
+# -- Compiling architecture arch of blink_tb
+# End time: 13:37:01 on Aug 30,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" blink_tb 
+# Start time: 13:37:02 on Aug 30,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.blink_tb(arch)
+# Loading work.blink(beh)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: hldiee  Hostname: 706-HLDIEE-2161  ProcessID: 14484
+#           Attempting to use alternate WLF file "./wlfthij2f4".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlfthij2f4
+# End time: 13:37:18 on Aug 30,2020, Elapsed time: 0:00:16
+# Errors: 0, Warnings: 2

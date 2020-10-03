@@ -1,0 +1,104 @@
+# do sim.do
+# ** Error: ../src/counter_tb.vhd(74): (vcom-1484) Unknown formal identifier "input".
+# ** Error: ../src/counter_tb.vhd(60): Nonresolved signal 'sim_done' has multiple sources.
+#   Drivers:
+#     ../src/counter_tb.vhd(79):Process stimulus
+#        Driven at:
+#           ../src/counter_tb.vhd(80)
+#     ../src/counter_tb.vhd(67):Conditional signal assignment line__67
+# ** Error: ../src/counter_tb.vhd(86): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./sim.do line 6
+# C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -quiet -work work ../src/counter_tb.vhd"
+do sim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# ** Error: ../src/counter_tb.vhd(74): (vcom-1484) Unknown formal identifier "input".
+# ** Error: ../src/counter_tb.vhd(88): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./sim.do line 6
+# C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -quiet -work work ../src/counter_tb.vhd"
+do sim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# vsim -voptargs="+acc" -msgmode both counter_tb 
+# Start time: 18:20:36 on Oct 01,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.counter_tb(test)
+# Loading work.seven_seg_pkg
+# Loading work.top(arch)
+# Loading work.generic_counter(beh)
+# Loading work.generic_adder_beh(beh)
+# Loading work.seven_seg(behave)
+add wave sim:/counter_tb/*
+add wave sim:/counter_tb/UUT/*
+run -all
+do sim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# End time: 18:38:33 on Oct 01,2020, Elapsed time: 0:17:57
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" -msgmode both counter_tb 
+# Start time: 18:38:33 on Oct 01,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.counter_tb(test)
+# Loading work.seven_seg_pkg
+# Loading work.top(arch)
+# Loading work.generic_counter(beh)
+# Loading work.generic_adder_beh(beh)
+# Loading work.seven_seg(behave)
+do wave.do
+add wave sim:/counter_tb/*
+add wave sim:/counter_tb/UUT/*
+add wave sim:/counter_tb/UUT/counter/*
+add wave sim:/counter_tb/UUT/adder/*
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Users/andy/Desktop/svn_rev/HDL/lab4/sim/script/wave.do
+run -all
+run -all
+
+
+
+restart -f
+run -all
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Users/andy/Desktop/svn_rev/HDL/lab4/sim/script/wave.do
+do sim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# End time: 18:45:54 on Oct 01,2020, Elapsed time: 0:07:21
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" -msgmode both counter_tb 
+# Start time: 18:45:54 on Oct 01,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.counter_tb(test)
+# Loading work.seven_seg_pkg
+# Loading work.top(arch)
+# Loading work.generic_counter(beh)
+# Loading work.generic_adder_beh(beh)
+# Loading work.seven_seg(behave)
+do wave.do
+do wave.do
+do sim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# End time: 18:53:03 on Oct 01,2020, Elapsed time: 0:07:09
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" -msgmode both counter_tb 
+# Start time: 18:53:04 on Oct 01,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.counter_tb(test)
+# Loading work.seven_seg_pkg
+# Loading work.top(arch)
+# Loading work.generic_counter(beh)
+# Loading work.generic_adder_beh(beh)
+# Loading work.seven_seg(behave)

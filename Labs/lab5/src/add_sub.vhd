@@ -47,11 +47,12 @@ PACKAGE add_sub_pkg IS
     );
 
     PORT (
-      op_code     : IN  std_logic_vector(1 downto 0);           -- 2 bits due to states of both pressed/released keys
+      reset_n     : IN  std_logic;
+      clk         : IN  std_logic;
+      op_code     : IN  std_logic;
       inp_a       : IN  std_logic_vector(inp_width-1 downto 0);
       inp_b       : IN  std_logic_vector(inp_width-1 downto 0);
       --
-      op_enabled  : OUT std_logic;                              -- used to show if the given op_code is valid
       result      : OUT std_logic_vector(inp_width downto 0)    -- not inp_width-1 to have padding for result
     );
   END COMPONENT;
@@ -76,11 +77,12 @@ ENTITY add_sub IS
   );
   
   PORT (
-    op_code     : IN  std_logic_vector(1 downto 0);           -- 2 bits due to states of both pressed/released keys
+    reset_n     : IN  std_logic;
+    clk         : IN  std_logic;
+    op_code     : IN  std_logic;
     inp_a       : IN  std_logic_vector(inp_width-1 downto 0);
     inp_b       : IN  std_logic_vector(inp_width-1 downto 0);
     --
-    op_enabled  : OUT std_logic;                              -- used to show if the given op_code is valid
     result      : OUT std_logic_vector(inp_width downto 0)    -- not inp_width-1 to have padding for result
   );
 END ENTITY add_sub;
@@ -89,20 +91,19 @@ ARCHITECTURE behave OF add_sub IS
 
 BEGIN
 
-  PROCESS(op_code, inp_a, inp_b) IS
+  PROCESS(reset_n, clk) IS
   BEGIN
-    -- The MSB of op_code is addition
-    IF(op_code = "10") THEN
-      op_enabled <= '1';
-      result <= std_logic_vector(unsigned('0' & inp_a) + unsigned('0' & inp_b));
-    -- The MSB of op_code is subtraction
-    ELSIF(op_code = "01") THEN
-      op_enabled <= '1';
-      result <= std_logic_vector(unsigned('0' & inp_a) - unsigned('0' & inp_b));
-    -- op_code "00" and "11" are for both pressed/released conditions
-    ELSE
-      op_enabled <= '0';
+    IF(reset_n = '1') THEN
       result <= (others => '0');
+    ELSIF(rising_edge(clk)) THEN
+      -- The MSB of op_code is addition
+      IF(op_code = '0') THEN
+        result <= std_logic_vector(unsigned('0' & inp_a) + unsigned('0' & inp_b));
+      -- The MSB of op_code is subtraction
+      ELSE
+        result <= std_logic_vector(unsigned('0' & inp_a) - unsigned('0' & inp_b));
+      -- op_code "00" and "11" are for both pressed/released conditions
+      END IF;
     END IF;
   END PROCESS;
 

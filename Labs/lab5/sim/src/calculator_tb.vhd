@@ -53,8 +53,8 @@ ARCHITECTURE test OF calculator_tb IS
   SIGNAL op_inp_tb    : std_logic_vector(3 downto 0); -- To test addition/subtraction op inputs
   --
   SIGNAL HEX0_tb      : std_logic_vector(6 downto 0);
-  SIGNAL HEX1_tb      : std_logic_vector(6 downto 0);
   SIGNAL HEX2_tb      : std_logic_vector(6 downto 0);
+  SIGNAL HEX4_tb      : std_logic_vector(6 downto 0);
   --
   SIGNAL sim_done     : boolean :=  false;
   
@@ -75,8 +75,8 @@ BEGIN  -- test
       KEY => op_inp_tb,
       --
       HEX0 => HEX0_tb,
-      HEX1 => HEX1_tb,
-      HEX2 => HEX2_tb
+      HEX2 => HEX2_tb,
+      HEX4 => HEX4_tb
     );
 
 

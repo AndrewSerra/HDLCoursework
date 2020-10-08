@@ -4,4 +4,12 @@ Homework/exam*/
 Labs/lab*/*/hw
 Labs/lab*/hw
 
-*/work
+Homework/homework*/sim/work
+Homework/homework*/script/work
+
+Labs/lab*/sim/script/work
+Labs/lab*/sim/script/vsim.wlf
+Labs/lab*/sim/script/transcript
+Labs/lab*/sim/script/simulate.bat
+
+*/hw/project/*

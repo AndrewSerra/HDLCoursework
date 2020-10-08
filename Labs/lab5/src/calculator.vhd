@@ -42,7 +42,6 @@ USE ieee.std_logic_1164.ALL;
 PACKAGE calculator_pkg IS
   COMPONENT calculator IS
     PORT (
-      reset     : IN std_logic;
       CLOCK_50  : IN std_logic;
       SW        : IN  std_logic_vector(9 downto 0);
       KEY       : IN  std_logic_vector(3 downto 0);

@@ -1,0 +1,33 @@
+Encoding Type: Safe One-Hot
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |one_hot_fsm|curr_state                                                                                                                                            ;
++-----------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+-----------------------+
+; Name                  ; curr_state.BIT_8 ; curr_state.BIT_7 ; curr_state.BIT_6 ; curr_state.BIT_5 ; curr_state.BIT_4 ; curr_state.BIT_3 ; curr_state.BIT_2 ; curr_state.IDLE_BIT_1 ;
++-----------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+-----------------------+
+; curr_state.IDLE_BIT_1 ; 0                ; 0                ; 0                ; 0                ; 0                ; 0                ; 0                ; 0                     ;
+; curr_state.BIT_2      ; 0                ; 0                ; 0                ; 0                ; 0                ; 0                ; 1                ; 1                     ;
+; curr_state.BIT_3      ; 0                ; 0                ; 0                ; 0                ; 0                ; 1                ; 0                ; 1                     ;
+; curr_state.BIT_4      ; 0                ; 0                ; 0                ; 0                ; 1                ; 0                ; 0                ; 1                     ;
+; curr_state.BIT_5      ; 0                ; 0                ; 0                ; 1                ; 0                ; 0                ; 0                ; 1                     ;
+; curr_state.BIT_6      ; 0                ; 0                ; 1                ; 0                ; 0                ; 0                ; 0                ; 1                     ;
+; curr_state.BIT_7      ; 0                ; 1                ; 0                ; 0                ; 0                ; 0                ; 0                ; 1                     ;
+; curr_state.BIT_8      ; 1                ; 0                ; 0                ; 0                ; 0                ; 0                ; 0                ; 1                     ;
++-----------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+-----------------------+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 8     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 8     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
+Using a one-hot state machine, we are now giving each state one register. But because our design is sequential,
+we do not need to have a register for each state. This shows that we are using more than we need. 

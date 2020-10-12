@@ -47,7 +47,6 @@ END ENTITY calculator_tb;
 
 ARCHITECTURE test OF calculator_tb IS
 
-  SIGNAL reset_tb     : std_logic := '0';
   SIGNAL clk_tb       : std_logic := '0';
   SIGNAL sw_tb        : std_logic_vector(9 downto 0);
   SIGNAL op_inp_tb    : std_logic_vector(3 downto 0); -- To test addition/subtraction op inputs
@@ -69,7 +68,6 @@ BEGIN  -- test
     ---------------------------------------------------------------------------
     UUT : calculator
     PORT MAP (
-      reset => reset_tb,
       CLOCK_50 => clk_tb,
       SW => sw_tb,
       KEY => op_inp_tb,
@@ -90,9 +88,9 @@ BEGIN  -- test
     op_inp_tb <= (others => '0');
 
       -- Allow the system to reset to initial state
-      reset_tb <= '1';
+      sw_tb(9) <= '0';
       WAIT FOR PERIOD_c * 2;
-      reset_tb <= '0';
+      sw_tb(9) <= '1';
       WAIT FOR PERIOD_c;
       
       -- Iterate over possible key press states
@@ -101,7 +99,7 @@ BEGIN  -- test
         
         -- Iterate over all switch position combinations
         sw_iter : FOR sw_status IN 0 TO ((2**sw_tb'length)-1) LOOP
-          sw_tb <= std_logic_vector(to_unsigned(sw_status, sw_tb'length));
+          sw_tb <= std_logic_vector(to_unsigned(sw_status, sw_tb'length)) OR "1000000000";
           
           WAIT FOR PERIOD_c;
           -- Once all values for 6-bits tested exit loop for switches

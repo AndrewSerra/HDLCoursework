@@ -28,7 +28,6 @@ radix define States {
 }
 quietly WaveActivateNextPane {} 0
 add wave -noupdate -divider TB
-add wave -noupdate /calculator_tb/reset_tb
 add wave -noupdate /calculator_tb/clk_tb
 add wave -noupdate -radix hexadecimal -childformat {{/calculator_tb/UUT/inp_a_bcd(3) -radix hexadecimal} {/calculator_tb/UUT/inp_a_bcd(2) -radix hexadecimal} {/calculator_tb/UUT/inp_a_bcd(1) -radix hexadecimal} {/calculator_tb/UUT/inp_a_bcd(0) -radix hexadecimal}} -subitemconfig {/calculator_tb/UUT/inp_a_bcd(3) {-height 15 -radix hexadecimal} /calculator_tb/UUT/inp_a_bcd(2) {-height 15 -radix hexadecimal} /calculator_tb/UUT/inp_a_bcd(1) {-height 15 -radix hexadecimal} /calculator_tb/UUT/inp_a_bcd(0) {-height 15 -radix hexadecimal}} /calculator_tb/UUT/inp_a_bcd
 add wave -noupdate -radix hexadecimal -childformat {{/calculator_tb/UUT/inp_b_bcd(3) -radix hexadecimal} {/calculator_tb/UUT/inp_b_bcd(2) -radix hexadecimal} {/calculator_tb/UUT/inp_b_bcd(1) -radix hexadecimal} {/calculator_tb/UUT/inp_b_bcd(0) -radix hexadecimal}} -subitemconfig {/calculator_tb/UUT/inp_b_bcd(3) {-height 15 -radix hexadecimal} /calculator_tb/UUT/inp_b_bcd(2) {-height 15 -radix hexadecimal} /calculator_tb/UUT/inp_b_bcd(1) {-height 15 -radix hexadecimal} /calculator_tb/UUT/inp_b_bcd(0) {-height 15 -radix hexadecimal}} /calculator_tb/UUT/inp_b_bcd
@@ -69,7 +68,7 @@ add wave -noupdate /calculator_tb/UUT/result_disp/enable
 add wave -noupdate -radix hexadecimal /calculator_tb/UUT/result_disp/bcd
 add wave -noupdate -radix States /calculator_tb/UUT/result_disp/seven_seg_out
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {5285991 ps} 0} {{Cursor 2} {35908 ps} 0}
+WaveRestoreCursors {{Cursor 1} {5285991 ps} 0} {{Cursor 2} {37302 ps} 0}
 quietly wave cursor active 2
 configure wave -namecolwidth 155
 configure wave -valuecolwidth 40

@@ -7,9 +7,10 @@ Labs/lab*/hw
 Homework/homework*/sim/work
 Homework/homework*/script/work
 
-Labs/lab*/sim/script/work
-Labs/lab*/sim/script/vsim.wlf
-Labs/lab*/sim/script/transcript
-Labs/lab*/sim/script/simulate.bat
+Labs/lab*/sim/script/*
 
 */hw/project/*
+
+!Labs/lab*/sim/script/sim.do
+!Labs/lab*/sim/script/wave.do
+!Labs/lab*/sim/script/simulate.bat

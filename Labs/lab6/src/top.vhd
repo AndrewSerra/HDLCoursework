@@ -76,6 +76,9 @@ END ENTITY top;
 
 ARCHITECTURE arch OF top IS
 
+  SIGNAL reset_n           : std_logic;
+  SIGNAL keys_no_reset     : std_logic_vector(2 downto 0);
+  
   SIGNAL sw_sync           : std_logic_vector(9 downto 0) := (others => '0');
   SIGNAL key_sync          : std_logic_vector(2 downto 0) := (others => '0');
   
@@ -87,18 +90,25 @@ ARCHITECTURE arch OF top IS
   SIGNAL op_code           : std_logic_vector(1 downto 0) := (others => '0');
   SIGNAL calc_result       : std_logic_vector(8 downto 0) := (others => '0');
   SIGNAL padded_result     : std_logic_vector(11 downto 0);
+  
 BEGIN
   
   -- Create padding to the result
   -- OR with 12 bit 0s to expand the result from 9 bits
   padded_result <=  "000" & calc_result;
+  
+  -- Assign reset to specific signal
+  reset_n <= KEY(3);
+  
+  -- Other keys
+  keys_no_reset <= KEY(2 downto 0);
 
   calc_block : add_sub
     GENERIC MAP (
       inp_width => inp_a'length
     )
     PORT MAP (
-      reset_n => KEY(3),
+      reset_n => reset_n,
       clk => CLOCK_50,
       op_code => op_code,
       inp_a => inp_a,
@@ -110,12 +120,12 @@ BEGIN
 
   displays : three_digit_display
     PORT MAP (
-      reset_n => KEY(3),
+      reset_n => reset_n,
       clk => CLOCK_50,
       input => padded_result,
       --
-      ones => HEX0,
-      tens => HEX2,
+      ones     => HEX0,
+      tens     => HEX2,
       hundreds => HEX4
     );
   ----------------------------------------
@@ -127,7 +137,7 @@ BEGIN
     )
     PORT MAP (
       clk => CLOCK_50,
-      reset_n => KEY(3),
+      reset_n => reset_n,
       enable_write => inp_a_write_en,
       input => sw_sync(7 downto 0),
       --
@@ -140,7 +150,7 @@ BEGIN
     )
     PORT MAP (
       clk => CLOCK_50,
-      reset_n => KEY(3),
+      reset_n => reset_n,
       enable_write => inp_b_write_en,
       input => sw_sync(7 downto 0),
       --
@@ -159,7 +169,7 @@ BEGIN
     )
     PORT MAP (
       clk => CLOCK_50,
-      reset => KEY(3),
+      reset_n => reset_n,
       async_in => SW,
       sync_out => sw_sync
     );
@@ -170,8 +180,8 @@ BEGIN
     )
     PORT MAP (
       clk => CLOCK_50,
-      reset => KEY(3),
-      async_in => KEY(2 downto 0),
+      reset_n => reset_n,
+      async_in => keys_no_reset,
       sync_out => key_sync
     );
   ----------------------------------------
@@ -183,7 +193,7 @@ BEGIN
   top_inst : calculator_fsm
     PORT MAP (
       clock      => CLOCK_50,
-      reset_n    => KEY(3),      -- not synchronized because reset happens instantly
+      reset_n    => reset_n,      -- not synchronized because reset happens instantly
       exe_n      => key_sync(0), -- synchronized because it works with state change
       --
       led        => LEDR,

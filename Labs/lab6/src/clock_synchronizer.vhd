@@ -49,7 +49,7 @@ PACKAGE clock_synchronizer_pkg IS
       );
     PORT (
       clk      : IN  std_logic;
-      reset    : IN  std_logic;
+      reset_n  : IN  std_logic;
       async_in : IN  std_logic_vector(bit_width-1 DOWNTO 0);
       sync_out : OUT std_logic_vector(bit_width-1 DOWNTO 0)
       );
@@ -75,7 +75,7 @@ ENTITY clock_synchronizer IS
     );
   PORT (
     clk      : IN  std_logic;
-    reset    : IN  std_logic;
+    reset_n  : IN  std_logic;
     async_in : IN  std_logic_vector(bit_width-1 DOWNTO 0);
     sync_out : OUT std_logic_vector(bit_width-1 DOWNTO 0)
     );
@@ -92,9 +92,9 @@ BEGIN
   -----------------------------------------------------------------------------
   -- 
   -----------------------------------------------------------------------------
-  double_flop : PROCESS(reset, clk)
+  double_flop : PROCESS(reset_n, clk)
   BEGIN
-    IF (reset = '1') THEN
+    IF (reset_n = '0') THEN
       prev_data_1 <= (OTHERS => '0');
       prev_data_2 <= (OTHERS => '0');
     ELSIF rising_edge(clk) THEN

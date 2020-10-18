@@ -82,30 +82,30 @@ BEGIN  -- test
     -- the process will apply the test vectors to the UUT
     ---------------------------------------------------------------------------
     stimulus : PROCESS
-      VARIABLE sw_step : std_logic_vector(9 downto 0) := (others => '0');
     BEGIN  -- PROCESS stimulus
     
       sw_tb <= (others => '0');
-      key_tb <= (others => '0');
-
-      -- Allow the system to reset to initial state
-      key_tb <= "0001";
-      WAIT FOR PERIOD_c * 2;
       key_tb <= "1001";
+      WAIT FOR PERIOD_c * 2;
+      
+      -- Allow the system to reset to initial state
+      key_tb(3) <= '0';
+      WAIT FOR PERIOD_c * 2;
+      key_tb(3) <= '1';
       WAIT FOR PERIOD_c;
       
       FOR idx IN 0 TO ((2**sw_tb'length)-1) LOOP
         sw_tb <= std_logic_vector(to_unsigned(idx, sw_tb'length));
         
-        WAIT FOR PERIOD_c / 2;
+        WAIT FOR PERIOD_c;
         
-        IF(idx rem 5 = 1) THEN
-          key_tb <= "1000";
+        IF(idx mod 5 = 0) THEN
+          key_tb(0) <= '0'; -- State change
         ELSE 
-          key_tb <= "1001";
+          key_tb(0) <= '1';
         END IF;
         
-        WAIT FOR PERIOD_c / 2;
+        WAIT FOR PERIOD_c;
         
         IF(sw_tb(8) = '1') THEN
           EXIT;

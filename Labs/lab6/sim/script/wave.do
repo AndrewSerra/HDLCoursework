@@ -59,18 +59,18 @@ add wave -noupdate /top_tb/clk_tb
 add wave -noupdate -radix unsigned /top_tb/sw_tb
 add wave -noupdate /top_tb/key_tb
 add wave -noupdate -radix FSM_State /top_tb/LEDR_tb
-add wave -noupdate -radix DispValues /top_tb/HEX0_tb
-add wave -noupdate -radix DispValues /top_tb/HEX2_tb
 add wave -noupdate -radix DispValues /top_tb/HEX4_tb
+add wave -noupdate -radix DispValues /top_tb/HEX2_tb
+add wave -noupdate -radix DispValues /top_tb/HEX0_tb
 add wave -noupdate /top_tb/sim_done
 add wave -noupdate -divider UUT
 add wave -noupdate /top_tb/UUT/CLOCK_50
 add wave -noupdate -radix unsigned /top_tb/UUT/SW
 add wave -noupdate /top_tb/UUT/KEY
 add wave -noupdate -radix FSM_State /top_tb/UUT/LEDR
-add wave -noupdate -radix DispValues /top_tb/UUT/HEX0
-add wave -noupdate -radix DispValues /top_tb/UUT/HEX2
 add wave -noupdate -radix DispValues /top_tb/UUT/HEX4
+add wave -noupdate -radix DispValues /top_tb/UUT/HEX2
+add wave -noupdate -radix DispValues /top_tb/UUT/HEX0
 add wave -noupdate -radix unsigned /top_tb/UUT/sw_sync
 add wave -noupdate /top_tb/UUT/key_sync
 add wave -noupdate /top_tb/UUT/inp_a_write_en
@@ -102,12 +102,12 @@ add wave -noupdate -divider three_digit_display
 add wave -noupdate /top_tb/UUT/displays/reset_n
 add wave -noupdate /top_tb/UUT/displays/clk
 add wave -noupdate -radix unsigned /top_tb/UUT/displays/input
-add wave -noupdate -radix DispValues /top_tb/UUT/displays/ones
-add wave -noupdate -radix DispValues /top_tb/UUT/displays/tens
 add wave -noupdate -radix DispValues /top_tb/UUT/displays/hundreds
-add wave -noupdate -radix unsigned /top_tb/UUT/displays/ones_bcd
-add wave -noupdate -radix unsigned /top_tb/UUT/displays/tens_bcd
+add wave -noupdate -radix DispValues /top_tb/UUT/displays/tens
+add wave -noupdate -radix DispValues /top_tb/UUT/displays/ones
 add wave -noupdate -radix unsigned /top_tb/UUT/displays/hundreds_bcd
+add wave -noupdate -radix unsigned /top_tb/UUT/displays/tens_bcd
+add wave -noupdate -radix unsigned /top_tb/UUT/displays/ones_bcd
 add wave -noupdate -divider {Storage A}
 add wave -noupdate /top_tb/UUT/inp_a_store/reset_n
 add wave -noupdate /top_tb/UUT/inp_a_store/clk
@@ -122,14 +122,12 @@ add wave -noupdate -radix unsigned /top_tb/UUT/inp_b_store/input
 add wave -noupdate -radix unsigned /top_tb/UUT/inp_b_store/output
 add wave -noupdate -divider sw_clk_sync
 add wave -noupdate /top_tb/UUT/sw_clk_sync/clk
-add wave -noupdate /top_tb/UUT/sw_clk_sync/reset
 add wave -noupdate /top_tb/UUT/sw_clk_sync/async_in
 add wave -noupdate /top_tb/UUT/sw_clk_sync/sync_out
 add wave -noupdate /top_tb/UUT/sw_clk_sync/prev_data_1
 add wave -noupdate /top_tb/UUT/sw_clk_sync/prev_data_2
 add wave -noupdate -divider key_clk_sync
 add wave -noupdate /top_tb/UUT/key_clk_sync/clk
-add wave -noupdate /top_tb/UUT/key_clk_sync/reset
 add wave -noupdate /top_tb/UUT/key_clk_sync/async_in
 add wave -noupdate /top_tb/UUT/key_clk_sync/sync_out
 add wave -noupdate /top_tb/UUT/key_clk_sync/prev_data_1
@@ -151,4 +149,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {226283 ps}
+WaveRestoreZoom {248908 ps} {475191 ps}

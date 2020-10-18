@@ -85,8 +85,8 @@ ARCHITECTURE behave OF calculator_fsm IS
 
   TYPE states_t IS (INPUT_A, INPUT_B, DISP_SUM, DISP_DIFF);
   
-  SIGNAL curr_state : states_t := INPUT_A;
-  SIGNAL next_state : states_t := INPUT_A;
+  SIGNAL curr_state : states_t;
+  SIGNAL next_state : states_t;
   
 BEGIN
   

@@ -60,6 +60,7 @@ USE work.clock_synchronizer_pkg.ALL;
 USE work.add_sub_pkg.ALL;
 USE work.input_storage_pkg.ALL;
 USE work.three_digit_display_pkg.ALL;
+USE work.rising_edge_synchronizer_pkg.ALL;
 
 ENTITY top IS
   PORT (
@@ -77,15 +78,16 @@ END ENTITY top;
 ARCHITECTURE arch OF top IS
 
   SIGNAL reset_n           : std_logic;
-  SIGNAL keys_no_reset     : std_logic_vector(2 downto 0);
+  SIGNAL key_pb            : std_logic;
+  SIGNAL inv_key_sync        : std_logic;
   
   SIGNAL sw_sync           : std_logic_vector(9 downto 0) := (others => '0');
-  SIGNAL key_sync          : std_logic_vector(2 downto 0) := (others => '0');
+  SIGNAL key_sync          : std_logic;
   
-  SIGNAL inp_a_write_en    : std_logic := '0';
-  SIGNAL inp_b_write_en    : std_logic := '0';  
-  SIGNAL inp_a             : std_logic_vector(7 downto 0) := (others => '0');
-  SIGNAL inp_b             : std_logic_vector(7 downto 0) := (others => '0');
+  SIGNAL inp_a_write_en    : std_logic;
+  SIGNAL inp_b_write_en    : std_logic;  
+  SIGNAL inp_a             : std_logic_vector(7 downto 0);
+  SIGNAL inp_b             : std_logic_vector(7 downto 0);
   
   SIGNAL op_code           : std_logic_vector(1 downto 0) := (others => '0');
   SIGNAL calc_result       : std_logic_vector(8 downto 0) := (others => '0');
@@ -100,8 +102,9 @@ BEGIN
   -- Assign reset to specific signal
   reset_n <= KEY(3);
   
-  -- Other keys
-  keys_no_reset <= KEY(2 downto 0);
+  -- pb trigger
+  key_pb <= KEY(0);
+  inv_key_sync <= NOT key_sync;
 
   calc_block : add_sub
     GENERIC MAP (
@@ -174,15 +177,12 @@ BEGIN
       sync_out => sw_sync
     );
     
-  key_clk_sync : clock_synchronizer
-    GENERIC MAP (
-      bit_width => 3
-    )
+  key_clk_sync : rising_edge_synchronizer
     PORT MAP (
       clk => CLOCK_50,
       reset_n => reset_n,
-      async_in => keys_no_reset,
-      sync_out => key_sync
+      input => key_pb,
+      edge => key_sync
     );
   ----------------------------------------
   --     END Clock Synchronization      --
@@ -194,7 +194,7 @@ BEGIN
     PORT MAP (
       clock      => CLOCK_50,
       reset_n    => reset_n,      -- not synchronized because reset happens instantly
-      exe_n      => key_sync(0), -- synchronized because it works with state change
+      exe_n      => inv_key_sync,     -- synchronized because it works with state change
       --
       led        => LEDR,
       op_code    => op_code,

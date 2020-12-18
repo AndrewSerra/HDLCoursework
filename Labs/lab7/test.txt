@@ -1,0 +1,7 @@
+enter 4
+multip 8
+save data
+subtract 8
+divide by 2
+load from mem
+divide by 2

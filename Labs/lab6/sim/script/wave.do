@@ -65,6 +65,7 @@ add wave -noupdate -radix DispValues /top_tb/HEX0_tb
 add wave -noupdate /top_tb/sim_done
 add wave -noupdate -divider UUT
 add wave -noupdate /top_tb/UUT/CLOCK_50
+add wave -noupdate /top_tb/UUT/reset_n
 add wave -noupdate -radix unsigned /top_tb/UUT/SW
 add wave -noupdate /top_tb/UUT/KEY
 add wave -noupdate -radix FSM_State /top_tb/UUT/LEDR
@@ -126,12 +127,14 @@ add wave -noupdate /top_tb/UUT/sw_clk_sync/async_in
 add wave -noupdate /top_tb/UUT/sw_clk_sync/sync_out
 add wave -noupdate /top_tb/UUT/sw_clk_sync/prev_data_1
 add wave -noupdate /top_tb/UUT/sw_clk_sync/prev_data_2
-add wave -noupdate -divider key_clk_sync
+add wave -noupdate -divider rising_edge_sync_key
 add wave -noupdate /top_tb/UUT/key_clk_sync/clk
-add wave -noupdate /top_tb/UUT/key_clk_sync/async_in
-add wave -noupdate /top_tb/UUT/key_clk_sync/sync_out
-add wave -noupdate /top_tb/UUT/key_clk_sync/prev_data_1
-add wave -noupdate /top_tb/UUT/key_clk_sync/prev_data_2
+add wave -noupdate /top_tb/UUT/key_clk_sync/reset_n
+add wave -noupdate /top_tb/UUT/key_clk_sync/input
+add wave -noupdate /top_tb/UUT/key_clk_sync/edge
+add wave -noupdate /top_tb/UUT/key_clk_sync/input_z
+add wave -noupdate /top_tb/UUT/key_clk_sync/input_zz
+add wave -noupdate /top_tb/UUT/key_clk_sync/input_zzz
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {350807 ps} 0} {{Cursor 2} {8664 ps} 0}
 quietly wave cursor active 2
@@ -149,4 +152,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {248908 ps} {475191 ps}
+WaveRestoreZoom {0 ps} {226283 ps}

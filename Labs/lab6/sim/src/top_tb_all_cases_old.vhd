@@ -55,16 +55,8 @@ ARCHITECTURE test OF top_tb IS
   SIGNAL HEX4_tb        : std_logic_vector(6 downto 0);
   --                    
   SIGNAL sim_done       : boolean :=  false;
-  
+                        
   CONSTANT PERIOD_c     : time := 20 ns;  -- 50 MHz
-  
-  PROCEDURE pb_event (signal pb : out std_logic) IS
-  BEGIN
-    pb <= '0';         -- State Change
-    WAIT FOR PERIOD_c;
-    pb <= '1';
-    WAIT FOR PERIOD_c*2;
-  END PROCEDURE pb_event;
     
 BEGIN  -- test
 
@@ -94,32 +86,30 @@ BEGIN  -- test
     
       sw_tb <= (others => '0');
       key_tb <= "1001";
+      WAIT FOR PERIOD_c * 2;
       
       -- Allow the system to reset to initial state
       key_tb(3) <= '0';
       WAIT FOR PERIOD_c * 2;
-      
-      WAIT UNTIL clk_tb = '1';
-      
       key_tb(3) <= '1';
-      WAIT FOR PERIOD_c*2;
+      WAIT FOR PERIOD_c;
       
-      FOR inp_a IN 0 TO ((2**8)-1) LOOP
-        sw_tb <= std_logic_vector(to_unsigned(inp_a, sw_tb'length));
-        pb_event(key_tb(0)); -- GO TO INPUT_B
+      FOR idx IN 0 TO ((2**sw_tb'length)-1) LOOP
+        sw_tb <= std_logic_vector(to_unsigned(idx, sw_tb'length));
         
-        FOR inp_b IN 0 TO ((2**8)-1) LOOP
-          sw_tb <= std_logic_vector(to_unsigned(inp_b, sw_tb'length));
-          pb_event(key_tb(0)); -- INPUT_B -> GO TO DISP_SUM
-          
-          pb_event(key_tb(0)); -- DISP_SUM -> GO TO DISP_DIFF
-          pb_event(key_tb(0)); -- DISP_DIFF -> GO TO INPUT_A
-  
-          IF(inp_b /= ((2**8)-1)) THEN
-            sw_tb <= std_logic_vector(to_unsigned(inp_a, sw_tb'length));
-            pb_event(key_tb(0)); -- INPUT_A -> GO TO INPUT_B
-          END IF;
-        END LOOP;
+        WAIT FOR PERIOD_c;
+        
+        IF(idx mod 5 = 0) THEN
+          key_tb(0) <= '0'; -- State change
+        ELSE 
+          key_tb(0) <= '1';
+        END IF;
+        
+        WAIT FOR PERIOD_c;
+        
+        IF(sw_tb(8) = '1') THEN
+          EXIT;
+        END IF;
       END LOOP;
       
       sim_done <= true;

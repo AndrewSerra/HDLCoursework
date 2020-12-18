@@ -4,16 +4,15 @@
 --
 --  DESIGNER NAME:  Andrew Serra
 --
---       LAB NAME:  Homework 3 - 4-bit Full Adder
+--       LAB NAME:  Final - Question 3 - Paralell-in Paralell-out 4-bit Shift Register
 --
---      FILE NAME:  full_adder_4bit.vhd
+--      FILE NAME:  dff_shift.vhd
 --
 -------------------------------------------------------------------------------
 --
 --  DESCRIPTION
 --
---    This design will implement a 4-bit full adder using
---    a structural architecture. 
+--    This design will implement one register of a shift register.
 --
 --
 -------------------------------------------------------------------------------
@@ -24,8 +23,7 @@
 -- |  DATE    | USER | Ver |  Description                                  |
 -- |==========+======+=====+================================================
 -- |          |      |     |
--- | 09/09/20 | ACS  | 1.0 | Created
--- | 10/21/20 | ACS  | 1.1 | Changed to 4 bit adder
+-- | 12/03/20 | ACS  | 1.0 | Created
 -- |          |      |     |
 --
 --*****************************************************************************
@@ -41,17 +39,16 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
-PACKAGE full_adder_4bit_pkg IS
-  COMPONENT full_adder_4bit IS
+PACKAGE dff_shift_pkg IS
+  COMPONENT dff_shift IS
     PORT (
-      a     : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-      b     : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-      cin   : IN STD_LOGIC;
-      sum   : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-      cout  : OUT STD_LOGIC
-      );
+    reset_n  : in std_logic;
+    clk      : in std_logic;
+    input    : in std_logic;
+    output   : out std_logic
+  );
   END COMPONENT;
-END PACKAGE full_adder_3bit_pkg;
+END PACKAGE dff_shift_pkg;
 
 
 
@@ -65,61 +62,26 @@ END PACKAGE full_adder_3bit_pkg;
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
-LIBRARY work;
-USE work.full_adder_pkg.ALL;
+ENTITY dff_shift IS
+  PORT (
+    reset_n  : in std_logic;
+    clk      : in std_logic;
+    input    : in std_logic;
+    output   : out std_logic
+  );
+END ENTITY dff_shift;
 
-ENTITY full_adder_4bit IS
-    PORT (
-        a     : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-      b     : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-      cin   : IN STD_LOGIC;
-      sum   : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-      cout  : OUT STD_LOGIC
-    );
-END ENTITY full_adder_4bit;
-
-ARCHITECTURE fa_4bit_arch OF full_adder_4bit IS
-
-  SIGNAL carry_s1 : STD_LOGIC;
-  SIGNAL carry_s2 : STD_LOGIC;
-  SIGNAL carry_s3 : STD_LOGIC;
+ARCHITECTURE behave OF dff_shift IS
   
 BEGIN
+  
+  process(clk, reset_n)
+  begin
+    if(reset_n = '0') then
+      output <= '0';
+    elsif(falling_edge(clk)) then
+      output <= input;
+    end if;
+  end process;
 
-    B0 : full_adder
-      PORT MAP (
-        a => a(0),
-        b => b(0),
-        cin => cin,
-        sum => sum(0),
-        cout => carry_s1
-    );
-    
-  B1 : full_adder
-      PORT MAP (
-        a => a(1),
-        b => b(1),
-        cin => carry_s1,
-        sum => sum(1),
-        cout => carry_s2
-    );
-
-    B2 : full_adder
-      PORT MAP (
-        a => a(2),
-        b => b(2),
-        cin => carry_s2,
-        sum => sum(2),
-        cout => carry_s3
-    );
-    
-    B3 : full_adder
-      PORT MAP (
-        a => a(3),
-        b => b(3),
-        cin => carry_s3,
-        sum => sum(3),
-        cout => cout
-    );
-
-END ARCHITECTURE fa_4bit_arch;
+END ARCHITECTURE behave;
